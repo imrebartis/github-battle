@@ -9,55 +9,59 @@ require('./index.css');
 // UI (see component definition, almost always needed)
 
 //component definition
-
-
-class Avatar extends React.Component {
+class Users extends React.Component {
   render() {
-    return (
-      <img src={this.props.img} />
-    )
-  }
-}
 
-class Label extends React.Component {
-  render() {
-    return (
-      <h1>Name: {this.props.name} </h1>
-    )
-  }
-}
+     var friends = this.props.list.filter(function (user) {
+              return user.friend === true;
+            });
 
-class ScreenName extends React.Component {
-  render() {
-    return (
-      <h3>Username: {this.props.username} </h3>
-    )
-  }
-}
+    var nonFriends = this.props.list.filter(function (user) {
+              return user.friend !== true;
+            });
 
-class Badge extends React.Component {
-  render() {
     return (
       <div>
-        <Avatar img={this.props.user.img}/>
-        <Label name={this.props.user.name}/>
-        <ScreenName username={this.props.user.username}/>
+        <h1>Friends</h1>
+        <ul>
+          {/*Create an <li> for every name in the list array who is also your friend*/
+            friends.map(function (user){
+              // key is added so that each item could have a unique identifier
+              return <li key={user.name}>{user.name}</li>
+            })}
+        </ul>
+        
+        <hr />
+        
+        <h1> Non Friends </h1>
+        <ul>
+          {/*Create an <li> for every name in the list array who is NOT your friend*/
+               nonFriends.map(function (user){
+              return <li key={user.name}>{user.name}</li>
+            })}
+        </ul>        
       </div>
     )
   }
 }
 
-Badge.PropTypes = {
-  img: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired
+Users.PropTypes = {
+  // specifiying that list should be an array of objects:  
+  // list: PropTypes.arrayOf(PropTypes.object).isRequired
+  list: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    friend: PropTypes.bool.isRequired
+  }))
 }
 
 ReactDOM.render(
-  <Badge user={{
-    name: 'Cat Stevens',
-    img: 'http://kaboompics.com/cache/4/a/e/9/b/4ae9b5eb5c90b004225674f6aa75fe531458fe8c.jpeg?version=v17',
-    username: 'cat'
-  }} />,
+  <Users list={[
+    { name: 'Tyler', friend: true },
+    { name: 'Ryan', friend: true },
+    { name: 'Michael', friend: false },
+    { name: 'Mikenzi', friend: false },
+    { name: 'Jessica', friend: true },
+    { name: 'Dan', friend: false } ]} 
+  />,
   document.getElementById('app')
 );
