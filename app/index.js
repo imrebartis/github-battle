@@ -10,12 +10,12 @@ require('./index.css');
 class App extends React.Component {
   render() {
     return (
-      <div>Hello youhoohoo!</div>
+      <div>Hello {this.props.name}!</div>
     )
   }
 }
 
 ReactDOM.render(
-  <App />,
+  <App name="Bjim" />,
   document.getElementById('app')
 );
