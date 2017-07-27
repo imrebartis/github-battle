@@ -7,15 +7,50 @@ require('./index.css');
 // UI (see component definition, almost always needed)
 
 //component definition
-class App extends React.Component {
+
+
+class Avatar extends React.Component {
   render() {
     return (
-      <div>Hello {this.props.name}!</div>
+      <img src={this.props.img} />
+    )
+  }
+}
+
+class Label extends React.Component {
+  render() {
+    return (
+      <h1>Name: {this.props.name} </h1>
+    )
+  }
+}
+
+class ScreenName extends React.Component {
+  render() {
+    return (
+      <h3>Username: {this.props.username} </h3>
+    )
+  }
+}
+
+class Badge extends React.Component {
+  render() {
+    return (
+      <div>
+        <Avatar img={this.props.user.img}/>
+        <Label name={this.props.user.name}/>
+        <ScreenName username={this.props.user.username}/>
+      </div>
     )
   }
 }
 
 ReactDOM.render(
-  <App name="Bjim" />,
+  <Badge user={{
+    name: 'Cat Stevens',
+    img: 'http://kaboompics.com/cache/4/a/e/9/b/4ae9b5eb5c90b004225674f6aa75fe531458fe8c.jpeg?version=v17',
+    username: 'cat'
+  }} />,
   document.getElementById('app')
 );
+
