@@ -1,5 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var PropTypes = require('prop-types');
+
 require('./index.css');
 
 // state (not always needed)
@@ -7,50 +9,55 @@ require('./index.css');
 // UI (see component definition, almost always needed)
 
 //component definition
-class Users extends React.Component {
+
+
+class Avatar extends React.Component {
   render() {
+    return (
+      <img src={this.props.img} />
+    )
+  }
+}
 
-     var friends = this.props.list.filter(function (user) {
-              return user.friend === true;
-            });
+class Label extends React.Component {
+  render() {
+    return (
+      <h1>Name: {this.props.name} </h1>
+    )
+  }
+}
 
-    var nonFriends = this.props.list.filter(function (user) {
-              return user.friend !== true;
-            });
+class ScreenName extends React.Component {
+  render() {
+    return (
+      <h3>Username: {this.props.username} </h3>
+    )
+  }
+}
 
+class Badge extends React.Component {
+  render() {
     return (
       <div>
-        <h1>Friends</h1>
-        <ul>
-          {/*Create an <li> for every name in the list array who is also your friend*/
-            friends.map(function (user){
-              // key is added so that each item could have a unique identifier
-              return <li key={user.name}>{user.name}</li>
-            })}
-        </ul>
-        
-        <hr />
-        
-        <h1> Non Friends </h1>
-        <ul>
-          {/*Create an <li> for every name in the list array who is NOT your friend*/
-               nonFriends.map(function (user){
-              return <li key={user.name}>{user.name}</li>
-            })}
-        </ul>        
+        <Avatar img={this.props.user.img}/>
+        <Label name={this.props.user.name}/>
+        <ScreenName username={this.props.user.username}/>
       </div>
     )
   }
 }
 
+Badge.PropTypes = {
+  img: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired
+}
+
 ReactDOM.render(
-  <Users list={[
-    { name: 'Tyler', friend: true },
-    { name: 'Ryan', friend: true },
-    { name: 'Michael', friend: false },
-    { name: 'Mikenzi', friend: false },
-    { name: 'Jessica', friend: true },
-    { name: 'Dan', friend: false } ]} 
-  />,
+  <Badge user={{
+    name: 'Cat Stevens',
+    img: 'http://kaboompics.com/cache/4/a/e/9/b/4ae9b5eb5c90b004225674f6aa75fe531458fe8c.jpeg?version=v17',
+    username: 'cat'
+  }} />,
   document.getElementById('app')
 );
