@@ -51,20 +51,20 @@ class Results extends Component {
       error: null,
       loading: true
    }
-  componentDidMount() {
+  async componentDidMount() {
     const {playerOneName, playerTwoName} = queryString.parse(this.props.location.search);
 
-      battle([
-      playerOneName,
-      playerTwoName
-      ]).then((players) => {
-        // console.log(players);
-        if (players === null) {
+      const players = await battle([
+          playerOneName,
+          playerTwoName
+      ])
+
+      if (players === null) {
           return this.setState(() => ({
               error: 'Looks like there was an error. Check that both users exist on Github.',
               loading: false
           }));
-        }
+      }
 
       this.setState( () => ({
           error: null,
@@ -72,7 +72,6 @@ class Results extends Component {
           loser: players[1],
           loading: false,
       }));
-    });
   }
   
   render() {
