@@ -1,16 +1,13 @@
-const React = require('react');
-const ReactRouter = require('react-router-dom');
-const Router = ReactRouter.BrowserRouter;
-const Route = ReactRouter.Route;
-const Switch = ReactRouter.Switch;
-const Nav = require('./Nav');
-const Home = require('./Home');
-const Battle = require('./Battle');
-const Results = require('./Results');
-const Popular = require('./Popular');
+import React, {Component} from 'react';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import Nav from './Nav';
+import Home from './Home';
+import Battle from './Battle';
+import Results from './Results';
+import Popular from './Popular';
 
 // thanks to Switch the Not Found route will render only if we're not on the other routes
-class App extends React.Component {
+class App extends Component {
   render() {
     return (
       <Router>
@@ -30,4 +27,4 @@ class App extends React.Component {
   }
 }
 
-module.exports = App;
+export default App;
